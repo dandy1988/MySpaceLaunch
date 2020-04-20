@@ -17,8 +17,8 @@ public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickL
         tvLaunchEvent.setText("NULL");
     }
 
-    public void setData(LaunchEvent launchEvent) {//todo
-        tvLaunchEvent.setText("Date:"launchEvent.getNet()+" Name: "+launchEvent.getName());
+    public void setData(LaunchEvent launchEvent) {
+        tvLaunchEvent.setText("Date: "+launchEvent.getNet()+" Name: "+launchEvent.getName());
     }
 
     @Override

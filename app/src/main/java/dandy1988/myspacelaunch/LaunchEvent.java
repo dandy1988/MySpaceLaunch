@@ -3,6 +3,7 @@ package dandy1988.myspacelaunch;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
@@ -25,6 +26,12 @@ public class LaunchEvent {
     private String name;
     @JsonProperty("net")
     private String net;
+    @JsonProperty("vidURLs")
+    private List<String> vidURLs;
+    @JsonProperty("infoURLs")
+    private List<String> infoURLs;
+
+
 
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
@@ -59,6 +66,7 @@ public class LaunchEvent {
         return net;
     }
 
+
     @JsonAnyGetter
     public Map<String, Object> getAdditionalProperties() {
         return this.additionalProperties;
@@ -67,5 +75,25 @@ public class LaunchEvent {
     @JsonAnySetter
     public void setAdditionalProperty(String name, Object value) {
         this.additionalProperties.put(name, value);
+    }
+
+    @JsonProperty("vidURLs")
+    public List<String> getVidURLs() {
+        return vidURLs;
+    }
+
+    @JsonProperty("vidURLs")
+    public void setVidURLs(List<String> vidURLs) {
+        this.vidURLs = vidURLs;
+    }
+
+    @JsonProperty("infoURLs")
+    public List<String> getInfoURLs() {
+        return infoURLs;
+    }
+
+    @JsonProperty("infoURLs")
+    public void setInfoURLs(List<String> infoURLs) {
+        this.infoURLs = infoURLs;
     }
 }
