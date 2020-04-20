@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MySpaceLaunch</string>
+    <string name="fab_text">Request</string>
 </resources>

@@ -1,10 +1,13 @@
 package dandy1988.myspacelaunch;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
 import android.widget.TextView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -23,30 +26,32 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
-    private LaunchCollection launchCollection;
-    private TextView textView;
+    private RecyclerView rv;
+    private TextView tvTest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Calendar calendarDateStart = new GregorianCalendar(2015, 7 , 20);
-        Calendar calendarDateEnd = new GregorianCalendar(2015, 8 , 20);
+        tvTest = findViewById(R.id.checkedTextView);
 
+        rv = findViewById(R.id.rv);
+        rv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
-        try {
-            getLaunchCollection(calendarDateStart,calendarDateEnd);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        textView = (TextView) findViewById(R.id.tvEvents);
+//        Calendar calendarDateStart = new GregorianCalendar(2015, 7 , 20);
+//        Calendar calendarDateEnd = new GregorianCalendar(2015, 8 , 20);
+//        try {
+//            getLaunchCollection(calendarDateStart,calendarDateEnd);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
     }
 
@@ -65,15 +70,16 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<LaunchCollection> call, Response<LaunchCollection> response) {
                        LaunchCollection launchCollection = response.body();
-
-                        String text = "NULL";
-                        if (launchCollection != null) {
-                            for (LaunchEvent launchEvent : launchCollection.getLaunches()) {
-                                text = text + launchEvent.getId() + "  " + launchEvent.getNet() +
-                                        "  " + launchEvent.getName() + "\n";
-                            }
-                        }
-                        textView.setText(text);
+                        rv.setAdapter(new RecycleViewAdapter.LaunchAdapter(launchCollection));
+//                        String text = "NULL";
+//                        if (launchCollection != null) {
+//                            for (LaunchEvent launchEvent : launchCollection.getLaunches()) {
+//                                text = text + launchEvent.getId() + "  " + launchEvent.getNet() +
+//                                        "  " + launchEvent.getName() + "\n";
+//                            }
+//                        }
+//                        tvTest = findViewById(R.id.checkedTextView);
+//                        tvTest.setText(text);
                     }
 
                     @Override
@@ -81,12 +87,17 @@ public class MainActivity extends AppCompatActivity {
                         t.printStackTrace();
                     }
                 });
-//
-//        return launchCollection;
     }
 
-
-
+    public void btn_getPeriod(View view) {
+        Calendar calendarDateStart = new GregorianCalendar(2015, 7 , 20);
+        Calendar calendarDateEnd = new GregorianCalendar(2015, 8 , 20);
+        try {
+            getLaunchCollection(calendarDateStart,calendarDateEnd);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 //
