@@ -5,11 +5,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -20,6 +24,7 @@ import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,28 +33,18 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView rv;
-    private TextView tvTest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        tvTest = findViewById(R.id.checkedTextView);
-
         rv = findViewById(R.id.rv);
         rv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
     }
 
     private void getLaunchCollection(Calendar calendarDateStart, Calendar calendarDateEnd,
                                      String limit) throws IOException {
-
         Date dateStart = calendarDateStart.getTime();
         Date dateEnd = calendarDateEnd.getTime();
 
@@ -65,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
                         LaunchCollection launchCollection = response.body();
                         if (launchCollection != null) {
                             rv.setAdapter(new RecycleViewAdapter.LaunchAdapter(launchCollection));
-                            rv.getAdapter().notifyDataSetChanged();
+                            Objects.requireNonNull(rv.getAdapter()).notifyDataSetChanged();
                         }
                     }
 
@@ -84,23 +79,51 @@ public class MainActivity extends AppCompatActivity {
         EditText etEndMonth = findViewById(R.id.etEndMonth);
         EditText etEndYear = findViewById(R.id.etEndYear);
         EditText etLimit = findViewById(R.id.etAmountLanches);
+//        startDay = 20;startMonth = 8;startYear = 2015;
+//        endDay = 20;endMonth = 9;endYear = 2015;
+        int startDay; int startMonth; int startYear;
+        int endDay; int endMonth; int endYear;
+        String limit;
 
+        if ((etStartDay!=null)&&(etStartMonth!=null)&&(etStartYear!=null)&&(etEndDay!=null)
+        &&(etEndMonth!=null)&&(etEndYear!=null)){
+            if((etStartDay.getText().toString().equals(""))||(etStartMonth.getText().toString().equals(""))
+                    ||(etStartYear.getText().toString().equals(""))
+                    ||(etEndDay.getText().toString().equals(""))||(etEndMonth.getText().toString().equals(""))
+                    ||(etEndYear.getText().toString().equals(""))) {
+                errorMassage(view, "SOME VALUES EMPTY");
+            }else {
 
-        int startDay = Integer.valueOf(etStartDay.getText().toString());
-        int startMonth = Integer.valueOf(etStartMonth.getText().toString()) - 1;
-        int startYear = Integer.valueOf(etStartYear.getText().toString());
-        int endDay = Integer.valueOf(etEndDay.getText().toString());
-        int endMonth = Integer.valueOf(etEndMonth.getText().toString()) - 1;
-        int endYear = Integer.valueOf(etEndYear.getText().toString());
-        String limit = etLimit.getText().toString();
+                startDay = Integer.valueOf(etStartDay.getText().toString());
+                startMonth = Integer.valueOf(etStartMonth.getText().toString()) - 1;
+                startYear = Integer.valueOf(etStartYear.getText().toString());
+                endDay = Integer.valueOf(etEndDay.getText().toString());
+                endMonth = Integer.valueOf(etEndMonth.getText().toString()) - 1;
+                endYear = Integer.valueOf(etEndYear.getText().toString());
+                limit = etLimit.getText().toString();
 
-        Calendar calendarDateStart = new GregorianCalendar(startYear, startMonth, startDay);
-        Calendar calendarDateEnd = new GregorianCalendar(endYear, endMonth, endDay);
-        try {
-            getLaunchCollection(calendarDateStart, calendarDateEnd, limit);
-        } catch (IOException e) {
-            e.printStackTrace();
+                if ((startDay>31)||(startDay==0)||(startMonth>11)||(startMonth<0)||(startYear<1961)
+                    ||(endDay>31)||(endDay==0)||(endMonth>11)||(endMonth<0)||(startYear>endYear)){
+                    errorMassage(view, "WRONG DATA OF PERIOD");
+                }else {
+                    Calendar calendarDateStart = new GregorianCalendar(startYear, startMonth, startDay);
+                    Calendar calendarDateEnd = new GregorianCalendar(endYear, endMonth, endDay);
+                    try {
+                        getLaunchCollection(calendarDateStart, calendarDateEnd, limit);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
         }
+    }
+
+    void errorMassage(View view, String text){
+        Toast toast = Toast.makeText(view.getContext(), text, Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        LinearLayout toastContainer = (LinearLayout) toast.getView();
+        toastContainer.setBackgroundColor(Color.YELLOW);
+        toast.show();
     }
 }
 

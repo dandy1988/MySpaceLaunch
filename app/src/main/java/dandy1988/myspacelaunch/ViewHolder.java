@@ -1,5 +1,6 @@
 package dandy1988.myspacelaunch;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -33,16 +34,23 @@ public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickL
         if(launchEvent.getVidURLs()!=null){
             String text = launchEvent.getVidURLs().get(0).toString();
             Intent startVideoLaunchEvent = new Intent(Intent.ACTION_VIEW, Uri.parse(text));
-            view.getContext().startActivity(startVideoLaunchEvent);
+            try {
+                view.getContext().startActivity(startVideoLaunchEvent);
+            } catch (ActivityNotFoundException ex) {
+                ex.printStackTrace();
+            }
         }
         if((launchEvent.getVidURLs()==null)&&(launchEvent.getInfoURLs()!=null)){
             String text = launchEvent.getInfoURLs().get(0).toString();
-            Intent startVideoLaunchEvent = new Intent(Intent.ACTION_VIEW, Uri.parse(text));
-            view.getContext().startActivity(startVideoLaunchEvent);
+            Intent startInfoLaunchEvent = new Intent(Intent.ACTION_VIEW, Uri.parse(text));
+            try {
+                view.getContext().startActivity(startInfoLaunchEvent);
+            } catch (ActivityNotFoundException ex) {
+                ex.printStackTrace();
+            }
 
         }
     }
 }
 
-//            Toast toast = Toast.makeText(view.getContext(), text, Toast.LENGTH_LONG);
-//            toast.show();
+
