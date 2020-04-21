@@ -1,7 +1,11 @@
 package dandy1988.myspacelaunch;
 
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 //вспомогательный класс для создание viewholder
 public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     private TextView tvLaunchEvent;
-
+    private LaunchEvent launchEvent;
     public ViewHolder(@NonNull View itemView) {
         super(itemView);
         itemView.setOnClickListener(this);// Передача Click выбранного dandy1988.myspacelaunch.ViewHolder
@@ -18,16 +22,27 @@ public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickL
     }
 
     public void setData(LaunchEvent launchEvent) {
-        tvLaunchEvent.setText("Date: "+launchEvent.getNet()+" Name: "+launchEvent.getName());
+        if(launchEvent!=null) {
+            tvLaunchEvent.setText("Date: " + launchEvent.getNet() + "\nName: " + launchEvent.getName());
+            this.launchEvent = launchEvent;
+        }
     }
 
     @Override
     public void onClick(View view) {
-        if (tvLaunchEvent.getText().equals("2020.1.0: event#0")) {
-            tvLaunchEvent.setText("Go to site:....");
-            return;
+        if(launchEvent.getVidURLs()!=null){
+            String text = launchEvent.getVidURLs().get(0).toString();
+            Intent startVideoLaunchEvent = new Intent(Intent.ACTION_VIEW, Uri.parse(text));
+            view.getContext().startActivity(startVideoLaunchEvent);
         }
-        tvLaunchEvent.setText("Clicked!!!!");
+        if((launchEvent.getVidURLs()==null)&&(launchEvent.getInfoURLs()!=null)){
+            String text = launchEvent.getInfoURLs().get(0).toString();
+            Intent startVideoLaunchEvent = new Intent(Intent.ACTION_VIEW, Uri.parse(text));
+            view.getContext().startActivity(startVideoLaunchEvent);
+
+        }
     }
 }
 
+//            Toast toast = Toast.makeText(view.getContext(), text, Toast.LENGTH_LONG);
+//            toast.show();

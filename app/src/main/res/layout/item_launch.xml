@@ -12,7 +12,6 @@
         android:textSize="16sp"
         android:fontFamily="monospace"
         android:textColor="#44bb5e"
-        android:layout_gravity="center"
         android:layout_margin="16dp"
         tools:text="LAUNCH"
         />

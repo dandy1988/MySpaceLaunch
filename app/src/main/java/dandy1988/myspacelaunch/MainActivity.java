@@ -62,11 +62,11 @@ public class MainActivity extends AppCompatActivity {
                 .enqueue(new Callback<LaunchCollection>() {
                     @Override
                     public void onResponse(Call<LaunchCollection> call, Response<LaunchCollection> response) {
-                       LaunchCollection launchCollection = response.body();
-                       if (launchCollection != null) {
-                           rv.setAdapter(new RecycleViewAdapter.LaunchAdapter(launchCollection));
-                           rv.getAdapter().notifyDataSetChanged();
-                       }
+                        LaunchCollection launchCollection = response.body();
+                        if (launchCollection != null) {
+                            rv.setAdapter(new RecycleViewAdapter.LaunchAdapter(launchCollection));
+                            rv.getAdapter().notifyDataSetChanged();
+                        }
                     }
 
                     @Override
@@ -87,22 +87,22 @@ public class MainActivity extends AppCompatActivity {
 
 
         int startDay = Integer.valueOf(etStartDay.getText().toString());
-        int startMonth = Integer.valueOf(etStartMonth.getText().toString())-1;
+        int startMonth = Integer.valueOf(etStartMonth.getText().toString()) - 1;
         int startYear = Integer.valueOf(etStartYear.getText().toString());
         int endDay = Integer.valueOf(etEndDay.getText().toString());
-        int endMonth = Integer.valueOf(etEndMonth.getText().toString())-1;
+        int endMonth = Integer.valueOf(etEndMonth.getText().toString()) - 1;
         int endYear = Integer.valueOf(etEndYear.getText().toString());
         String limit = etLimit.getText().toString();
 
         Calendar calendarDateStart = new GregorianCalendar(startYear, startMonth, startDay);
         Calendar calendarDateEnd = new GregorianCalendar(endYear, endMonth, endDay);
         try {
-            getLaunchCollection(calendarDateStart,calendarDateEnd, limit);
+            getLaunchCollection(calendarDateStart, calendarDateEnd, limit);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
+}
 
 //
 //    private void jsonToObjectUrl(String events) throws IOException {
@@ -140,5 +140,3 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        }).start();
 //    }
-
-}
