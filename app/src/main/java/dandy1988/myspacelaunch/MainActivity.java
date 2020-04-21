@@ -127,39 +127,3 @@ public class MainActivity extends AppCompatActivity {
     }
 }
 
-//
-//    private void jsonToObjectUrl(String events) throws IOException {
-//        // Create Jackson ObjectMapper instance
-//        final ObjectMapper mapper = new ObjectMapper();
-//
-////        LaunchEventCollection launchEvents = mapper.readValue(events, LaunchEventCollection.class);
-//
-//        final Handler handler = new Handler();
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                try {
-//                    final LaunchCollection launchEvents = mapper.readValue(
-//                            new URL("https://launchlibrary.net/1.4/launch/2015-08-20/2015-09-20"),
-//                            LaunchCollection.class);// read from url
-//
-//                    handler.post(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            final TextView textView = (TextView) findViewById(R.id.tvEvents);
-//                            String text = "";
-//                            for (LaunchEvent launchEvent : launchEvents.getLaunches()) {
-//                                text = text + launchEvent.getId() + "  " + launchEvent.getNet() +
-//                                        "  " + launchEvent.getName()+"\n";
-//                            }
-//                            textView.setText(text);
-//                        }
-//                    });
-//                } catch (MalformedURLException e) {
-//                    e.printStackTrace();
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }).start();
-//    }

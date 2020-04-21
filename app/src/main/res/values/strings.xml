@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">MySpaceLaunch</string>
     <string name="fab_text">Request</string>
+    <string name="start_date_of_period">START DATE OF PERIOD:</string>
+    <string name="day">DAY:</string>
+    <string name="month">MONTH:</string>
+    <string name="year">YEAR:</string>
+    <string name="end_date_of_period">END DATE OF PERIOD:</string>
+    <string name="max_amount_of_launches_for_return">MAX AMOUNT OF LAUNCHES FOR RETURN:</string>
+    <string name="get_launches_of_period">Get launches of period</string>
+    <string name="result_of_request">RESULT OF REQUEST:</string>
 </resources>
