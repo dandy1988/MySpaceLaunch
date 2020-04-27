@@ -5,11 +5,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -33,11 +36,18 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView rv;
+    private TextView tvStartDate;
+    private TextView tvEndDate;
+    private Calendar startDate = Calendar.getInstance();
+    private Calendar endDate = Calendar.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        startDate = new GregorianCalendar(2015, 6, 20);
+        endDate = new GregorianCalendar(2015, 7, 20);
 
         rv = findViewById(R.id.rv);
         rv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
@@ -72,53 +82,57 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void btn_getPeriod(View view) {
-        EditText etStartDay = findViewById(R.id.etStartDay);
-        EditText etStartMonth = findViewById(R.id.etStartMonth);
-        EditText etStartYear = findViewById(R.id.etStartYear);
-        EditText etEndDay = findViewById(R.id.etEndDay);
-        EditText etEndMonth = findViewById(R.id.etEndMonth);
-        EditText etEndYear = findViewById(R.id.etEndYear);
         EditText etLimit = findViewById(R.id.etAmountLanches);
-//        startDay = 20;startMonth = 8;startYear = 2015;
-//        endDay = 20;endMonth = 9;endYear = 2015;
-        int startDay; int startMonth; int startYear;
-        int endDay; int endMonth; int endYear;
-        String limit;
+        String limit = etLimit.getText().toString();
 
-        if ((etStartDay!=null)&&(etStartMonth!=null)&&(etStartYear!=null)&&(etEndDay!=null)
-        &&(etEndMonth!=null)&&(etEndYear!=null)){
-            if((etStartDay.getText().toString().equals(""))||(etStartMonth.getText().toString().equals(""))
-                    ||(etStartYear.getText().toString().equals(""))
-                    ||(etEndDay.getText().toString().equals(""))||(etEndMonth.getText().toString().equals(""))
-                    ||(etEndYear.getText().toString().equals(""))) {
-                errorMassage(view, "SOME VALUES EMPTY");
-            }else {
-
-                startDay = Integer.valueOf(etStartDay.getText().toString());
-                startMonth = Integer.valueOf(etStartMonth.getText().toString()) - 1;
-                startYear = Integer.valueOf(etStartYear.getText().toString());
-                endDay = Integer.valueOf(etEndDay.getText().toString());
-                endMonth = Integer.valueOf(etEndMonth.getText().toString()) - 1;
-                endYear = Integer.valueOf(etEndYear.getText().toString());
-                limit = etLimit.getText().toString();
-
-                if ((startDay>31)||(startDay==0)||(startMonth>11)||(startMonth<0)||(startYear<1961)
-                    ||(endDay>31)||(endDay==0)||(endMonth>11)||(endMonth<0)||(startYear>endYear)){
-                    errorMassage(view, "WRONG DATA OF PERIOD");
-                }else {
-                    Calendar calendarDateStart = new GregorianCalendar(startYear, startMonth, startDay);
-                    Calendar calendarDateEnd = new GregorianCalendar(endYear, endMonth, endDay);
-                    try {
-                        getLaunchCollection(calendarDateStart, calendarDateEnd, limit);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
+        try {
+            getLaunchCollection(startDate, endDate, limit);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
-    void errorMassage(View view, String text){
+    public void tvStartDateClick(View view) {
+        tvStartDate = findViewById(R.id.tvStartDate);
+        new DatePickerDialog(MainActivity.this, startDateListener,
+                startDate.get(Calendar.YEAR),
+                startDate.get(Calendar.MONTH),
+                startDate.get(Calendar.DAY_OF_MONTH))
+                .show();
+    }
+
+    DatePickerDialog.OnDateSetListener startDateListener = new DatePickerDialog.OnDateSetListener() {
+        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+            if ((year>1961)&&(monthOfYear>0)) {
+                startDate = new GregorianCalendar(year, monthOfYear, dayOfMonth);
+                monthOfYear++;
+                String tvText = dayOfMonth + "-" + monthOfYear + "-" + year;
+                tvStartDate.setText(tvText.toString());
+            }else{
+                errorMassage(view, "Data must be >= 01-01-1961");
+            }
+        }
+    };
+
+    public void tvEndDateClick(View view) {
+        tvEndDate = findViewById(R.id.tvStartDate);
+        new DatePickerDialog(MainActivity.this, endDateListener,
+                startDate.get(Calendar.YEAR),
+                startDate.get(Calendar.MONTH),
+                startDate.get(Calendar.DAY_OF_MONTH))
+                .show();
+    }
+
+    DatePickerDialog.OnDateSetListener endDateListener = new DatePickerDialog.OnDateSetListener() {
+        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+            endDate = new GregorianCalendar(year, monthOfYear, dayOfMonth);
+            monthOfYear++;
+            String tvText = dayOfMonth + "-" + monthOfYear + "-" + year;
+            tvEndDate.setText(tvText.toString());
+        }
+    };
+
+    void errorMassage(View view, String text) {
         Toast toast = Toast.makeText(view.getContext(), text, Toast.LENGTH_LONG);
         toast.setGravity(Gravity.CENTER, 0, 0);
         LinearLayout toastContainer = (LinearLayout) toast.getView();

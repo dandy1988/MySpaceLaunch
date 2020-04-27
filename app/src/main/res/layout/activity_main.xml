@@ -11,98 +11,36 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/start_date_of_period"
+        android:layout_gravity="center"
         android:textColor="@color/RED"/>
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/tvStartDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-    >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/day"/>
-        <EditText
-            android:id="@+id/etStartDay"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:maxLength= "2"
-            android:inputType="number"
-            android:hint="1-31"
-            android:text="20"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/month"/>
-        <EditText
-            android:id="@+id/etStartMonth"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:hint="1-12"
-            android:maxLength= "2"
-            android:inputType="number"
-            android:text="7"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/year"/>
-        <EditText
-            android:id="@+id/etStartYear"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:maxLength= "4"
-            android:inputType="number"
-            android:hint="1961-.."
-            android:text="2015"/>
-    </LinearLayout>
+        android:text="20-07-2015"
+        android:textSize="20dp"
+        android:layout_gravity="center"
+        android:textColor="@color/BLUE"
+        android:onClick="tvStartDateClick"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/end_date_of_period"
+        android:layout_gravity="center"
         android:textColor="@color/RED"/>
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/tvEndDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/day"/>
-        <EditText
-            android:id="@+id/etEndDay"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:maxLength= "2"
-            android:inputType="number"
-            android:hint="1-31"
-            android:text="20"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/month"/>
-        <EditText
-            android:id="@+id/etEndMonth"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:maxLength= "2"
-            android:inputType="number"
-            android:hint="1-12"
-            android:text="8"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/year"/>
-        <EditText
-            android:id="@+id/etEndYear"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:maxLength= "4"
-            android:inputType="number"
-            android:hint="1961-.."
-            android:text="2015"/>
-    </LinearLayout>
+        android:text="22-08-2015"
+        android:textSize="20dp"
+        android:layout_gravity="center"
+        android:textColor="@color/BLUE"
+        android:onClick="tvEndDateClick"/>
+
 
     <LinearLayout
         android:layout_width="wrap_content"
