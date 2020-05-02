@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -12,35 +13,44 @@
         android:layout_height="wrap_content"
         android:text="@string/start_date_of_period"
         android:layout_gravity="center"
-        android:textColor="@color/RED"/>
-
+        android:textColor="@color/RED"
+        android:padding="@dimen/paddingTextView"/>
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
     <TextView
         android:id="@+id/tvStartDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="20-07-2015"
-        android:textSize="20dp"
+        android:text="@string/startDate"
+        android:textSize="@dimen/sizeDataText"
         android:layout_gravity="center"
         android:textColor="@color/BLUE"
         android:onClick="StartDateClick"/>
-
+    </androidx.cardview.widget.CardView>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/end_date_of_period"
         android:layout_gravity="center"
-        android:textColor="@color/RED"/>
+        android:textColor="@color/RED"
+        android:padding="@dimen/paddingTextView"/>
 
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
     <TextView
         android:id="@+id/tvEndDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="22-08-2015"
-        android:textSize="20dp"
+        android:text="@string/dataEndText"
+        android:textSize="@dimen/sizeDataText"
         android:layout_gravity="center"
         android:textColor="@color/BLUE"
         android:onClick="endDateClick"/>
-
+    </androidx.cardview.widget.CardView>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -55,10 +65,10 @@
             android:id="@+id/etAmountLanches"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:maxLength= "2"
+            android:maxLength= "3"
             android:inputType="number"
-            android:hint="1-99"
-            android:text="20"/>
+            android:hint="1-999"
+            android:text="@string/limitLanches"/>
     </LinearLayout>
 
     <Button

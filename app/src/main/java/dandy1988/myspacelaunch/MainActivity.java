@@ -31,13 +31,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
 
     private RecyclerView rv;
     private TextView tvStartDate;
     private TextView tvEndDate;
     private EditText etLimit;
-//    private CheckedTextView checkedTextView;
     private Calendar startDate = Calendar.getInstance();
     private Calendar endDate = Calendar.getInstance();
     private RecycleViewAdapter.LaunchAdapter recycleViewAdapter;
@@ -47,22 +46,16 @@ public class MainActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if(savedInstanceState == null){
+        if (savedInstanceState == null) {
             startDate = new GregorianCalendar(2015, 6, 20);
             endDate = new GregorianCalendar(2015, 7, 20);
         }
 
         setContentView(R.layout.activity_main);
-
         etLimit = findViewById(R.id.etAmountLanches);
         rv = findViewById(R.id.rv);
         rv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recycleViewAdapter = new RecycleViewAdapter.LaunchAdapter(new LaunchCollection());
-    }
-
-    @Override
-    protected void onStart(){
-        super.onStart();
     }
 
     private void getLaunchCollection(Calendar calendarDateStart, Calendar calendarDateEnd,
@@ -94,11 +87,11 @@ public class MainActivity extends AppCompatActivity{
                 });
     }
 
-    public void createRecycleViewAdapter(LaunchCollection launchCollection1){
+    public void createRecycleViewAdapter(LaunchCollection launchCollection1) {
         launchCollection = launchCollection1;
         if (recycleViewAdapter == null) {
             recycleViewAdapter = new RecycleViewAdapter.LaunchAdapter(launchCollection1);
-        }else{
+        } else {
             recycleViewAdapter.setData(launchCollection1);
         }
     }
@@ -123,12 +116,12 @@ public class MainActivity extends AppCompatActivity{
 
     DatePickerDialog.OnDateSetListener startDateListener = new DatePickerDialog.OnDateSetListener() {
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            if (year>1960) {
+            if (year > 1960) {
                 startDate = new GregorianCalendar(year, monthOfYear, dayOfMonth);
                 monthOfYear++;
                 String tvText = dayOfMonth + "-" + monthOfYear + "-" + year;
                 tvStartDate.setText(tvText.toString());
-            }else{
+            } else {
                 errorMassage(view, "Data must be >= 01-01-1961");
             }
         }
@@ -178,24 +171,20 @@ public class MainActivity extends AppCompatActivity{
                 rv.setAdapter(recycleViewAdapter);
                 Objects.requireNonNull(rv.getAdapter()).notifyDataSetChanged();
             }
-
             if (savedInstanceState.containsKey("limit")) {
                 etLimit.setText(savedInstanceState.getString("limit"));
             }
-
-            if (savedInstanceState != null) {
-                if (savedInstanceState.containsKey("startDate")) {
-                    startDate = (Calendar) savedInstanceState.getSerializable("startDate");
-                    tvStartDate = findViewById(R.id.tvStartDate);
-                    String text = startDate.get(Calendar.DAY_OF_MONTH)+"-"+(startDate.get(Calendar.MONTH)+1)+"-"+startDate.get(Calendar.YEAR);
-                    tvStartDate.setText(text);
-                }
-                if (savedInstanceState.containsKey("endDate")) {//todo
-                    endDate = (Calendar) savedInstanceState.getSerializable("endDate");
-                    tvEndDate = findViewById(R.id.tvEndDate);
-                    String text = endDate.get(Calendar.DAY_OF_MONTH)+"-"+(endDate.get(Calendar.MONTH)+1)+"-"+endDate.get(Calendar.YEAR);
-                    tvEndDate.setText(text);
-                }
+            if (savedInstanceState.containsKey("startDate")) {
+                startDate = (Calendar) savedInstanceState.getSerializable("startDate");
+                tvStartDate = findViewById(R.id.tvStartDate);
+                String text = startDate.get(Calendar.DAY_OF_MONTH) + "-" + (startDate.get(Calendar.MONTH) + 1) + "-" + startDate.get(Calendar.YEAR);
+                tvStartDate.setText(text);
+            }
+            if (savedInstanceState.containsKey("endDate")) {//todo
+                endDate = (Calendar) savedInstanceState.getSerializable("endDate");
+                tvEndDate = findViewById(R.id.tvEndDate);
+                String text = endDate.get(Calendar.DAY_OF_MONTH) + "-" + (endDate.get(Calendar.MONTH) + 1) + "-" + endDate.get(Calendar.YEAR);
+                tvEndDate.setText(text);
             }
         }
         super.onRestoreInstanceState(savedInstanceState);

@@ -9,4 +9,7 @@
     <string name="max_amount_of_launches_for_return">MAX AMOUNT OF LAUNCHES FOR RETURN:</string>
     <string name="get_launches_of_period">Get launches of period</string>
     <string name="result_of_request">RESULT OF REQUEST:</string>
+    <string name="startDate">20-7-2015</string>
+    <string name="dataEndText">22-8-2015</string>
+    <string name="limitLanches">20</string>
 </resources>
