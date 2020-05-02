@@ -1,4 +1,4 @@
-package dandy1988.myspacelaunch;
+package dandy1988.myspacelaunch.view;
 
 
 import android.view.LayoutInflater;
@@ -8,11 +8,16 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-class RecycleViewAdapter {
+import dandy1988.myspacelaunch.data.LaunchCollection;
+import dandy1988.myspacelaunch.data.LaunchEvent;
+import dandy1988.myspacelaunch.R;
+
+
+public class RecycleViewAdapter {
     //конфигурирование адаптера
     public static class LaunchAdapter extends RecyclerView.Adapter<ViewHolder>{
         //список launches
-        private final LaunchCollection data;
+        private LaunchCollection data;
         //конструктор адаптера
         public LaunchAdapter(LaunchCollection data) {
             this.data = data;
@@ -39,6 +44,14 @@ class RecycleViewAdapter {
         //подсчет количества элементов
         public int getItemCount() {
             return data.getLaunches().size();
+        }
+
+        public LaunchCollection getData() {
+            return data;
+        }
+
+        public void setData(LaunchCollection launchCollection){
+            data = launchCollection;
         }
 
     }

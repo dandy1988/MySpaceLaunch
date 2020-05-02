@@ -1,9 +1,8 @@
-package dandy1988.myspacelaunch;
-import java.sql.Date;
+package dandy1988.myspacelaunch.api;
 
+import dandy1988.myspacelaunch.data.LaunchCollection;
 import retrofit2.Call;
 import retrofit2.http.GET;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface APIService {

@@ -22,7 +22,7 @@
         android:textSize="20dp"
         android:layout_gravity="center"
         android:textColor="@color/BLUE"
-        android:onClick="tvStartDateClick"/>
+        android:onClick="StartDateClick"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -39,7 +39,7 @@
         android:textSize="20dp"
         android:layout_gravity="center"
         android:textColor="@color/BLUE"
-        android:onClick="tvEndDateClick"/>
+        android:onClick="endDateClick"/>
 
 
     <LinearLayout
@@ -66,7 +66,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/get_launches_of_period"
-        android:onClick="btn_getPeriod"/>
+        android:onClick="getPeriod"/>
 
     <CheckedTextView
         android:id="@+id/checkedTextView"
@@ -81,7 +81,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="match_parent"
         tools:context=".MainActivity">
     </androidx.recyclerview.widget.RecyclerView>
 

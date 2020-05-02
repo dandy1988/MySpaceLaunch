@@ -1,7 +1,8 @@
-package dandy1988.myspacelaunch;
+package dandy1988.myspacelaunch.data;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "net"
 })
 
-public class LaunchEvent {
+public class LaunchEvent implements Serializable {
     @JsonProperty("id")
     private String id;
     @JsonProperty("name")

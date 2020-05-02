@@ -1,4 +1,4 @@
-package dandy1988.myspacelaunch;
+package dandy1988.myspacelaunch.api;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
